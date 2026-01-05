@@ -49,6 +49,7 @@ fun SplashScreen(navController: NavController) {
         contentAlignment = Alignment.Center
     ) {
         Column(
+            modifier = Modifier.offset(y = (-60).dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             // App Logo from assets/drawable
