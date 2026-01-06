@@ -15,7 +15,6 @@ android {
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -84,6 +83,11 @@ dependencies {
 
     // ViewModel & Lifecycle
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+
+    // Firebase
+    implementation(platform("com.google.firebase:firebase-bom:32.2.2"))
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-firestore-ktx")
 
     // Testing
     testImplementation("junit:junit:4.13.2")

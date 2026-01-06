@@ -22,4 +22,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "Boipata"
 include(":app")
- 
