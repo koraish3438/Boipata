@@ -17,9 +17,19 @@ A modern eBook reader app built with **Kotlin + Jetpack Compose**, featuring cat
 
 ---
 
-## 📅 Day 2 – API + Room Setup + Category-wise Book Fetch
+##✅ Day 2
 
-**Date:** 05-01-26  
+**Date:** 05-01-26
+**Today Goal:** Logo + UI Design
+
+### ✅ Tasks Completed
+- App logo setup completed ✔
+- Splash screen redesigned (green gradient based) ✔
+- Login & Register page design goal fixed ✔
+
+## 📅 Day 3 – API + Room Setup + Category-wise Book Fetch
+
+**Date:** 06-01-26  
 **Today Goal:** API integration, Room caching, ViewModel, and Compose UI  
 
 ### ✅ Tasks Completed
