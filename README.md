@@ -27,24 +27,25 @@ A modern eBook reader app built with **Kotlin + Jetpack Compose**, featuring cat
 - Splash screen redesigned (green gradient based) ✔
 - Login & Register page design goal fixed ✔
 
-## 📅 Day 3 – API + Room Setup + Category-wise Book Fetch
+
+## ✅ Day 3
 
 **Date:** 06-01-26  
-**Today Goal:** API integration, Room caching, ViewModel, and Compose UI  
+**Today Goal:** Navigation & Authentication UI Setup
 
-### ✅ Tasks Completed
-- Ktor client setup complete  
-- Open Library API integration  
-- Room database setup  
-- Book Entity & DAO created  
-- Repository logic (API → Room) done  
-- ViewModel setup with StateFlow  
-- Compose UI for category-wise book list ready  
+- ✔ Jetpack Compose Navigation implemented (Splash → Login → Register → Home)  
+- ✔ `BoipataNavGraph` created to manage routes  
+- ✔ `LoginScreen.kt` designed with email & password fields and UI validation  
+- ✔ `RegisterScreen.kt` designed with name, email & password fields and validation  
+- ✔ "Continue without account" option added for demo mode  
 
-### 🔜 Next Day Plan
-- Implement **Book Details screen**  
-- Read / Download button  
-- Filter by **Bangla / English**  
-- Add **Favorites / Bookmark** feature  
+## ✅ Day 4
 
----
+**Date:** 07-01-26  
+**Today Goal:** Firebase Integration & ViewModel
+
+- ✔ Firebase successfully connected (Auth & Firestore)  
+- ✔ `AuthViewModel` created for login & registration logic  
+- ✔ `BoipataApp.kt` updated to pass `AuthViewModel` to NavGraph  
+- ✔ Login & Register screens connected to `AuthViewModel` for authentication logic  
+- ✔ Navigation from login/register → home implemented after successful login
