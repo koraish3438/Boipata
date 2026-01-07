@@ -1,5 +1,8 @@
 package com.example.boipata.ui.auth
 
+import android.widget.Toast
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -12,6 +15,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -30,25 +35,34 @@ fun RegisterScreen(
     var name by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-
     var nameError by remember { mutableStateOf<String?>(null) }
     var emailError by remember { mutableStateOf<String?>(null) }
     var passError by remember { mutableStateOf<String?>(null) }
 
+    val context = LocalContext.current
+    val focusManager = LocalFocusManager.current
+    val interactionSource = remember { MutableInteractionSource() }
+
     fun validate(): Boolean {
-        nameError = if (name.isBlank()) "Please enter your name" else null
-        emailError = if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) "Enter a valid email address" else null
-        passError = if (password.length < 6) "Password must be at least 6 characters" else null
+        nameError = if (name.isBlank()) "Enter your name" else null
+        emailError = if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) "Enter a valid email" else null
+        passError = if (password.length < 6) "Password must be at least 6 digits" else null
         return nameError == null && emailError == null && passError == null
     }
 
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = BackgroundLight
-    ) {
+    Scaffold(
+        modifier = Modifier
+            .fillMaxSize()
+            .systemBarsPadding()
+            .clickable(interactionSource = interactionSource, indication = null) {
+                focusManager.clearFocus()
+            },
+        containerColor = BackgroundLight
+    ) { innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .padding(innerPadding)
                 .padding(horizontal = 30.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
@@ -59,10 +73,8 @@ fun RegisterScreen(
                 color = GreenPrimary,
                 fontWeight = FontWeight.Bold
             )
-
             Text(
-                text = "Create an account to get started",
-                style = MaterialTheme.typography.bodyMedium,
+                text = "Join us to start your journey",
                 color = TextSecondary,
                 modifier = Modifier.padding(bottom = 32.dp)
             )
@@ -70,10 +82,7 @@ fun RegisterScreen(
             // Name Field
             OutlinedTextField(
                 value = name,
-                onValueChange = {
-                    name = it
-                    if (nameError != null) nameError = null
-                },
+                onValueChange = { name = it; nameError = null },
                 label = { Text("Name") },
                 leadingIcon = { Icon(Icons.Default.Person, contentDescription = null, tint = GreenPrimary) },
                 modifier = Modifier.fillMaxWidth(),
@@ -82,10 +91,10 @@ fun RegisterScreen(
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = GreenPrimary,
                     unfocusedBorderColor = GreenSecondary,
-                    focusedLabelColor = GreenPrimary,
-                    cursorColor = GreenPrimary,
                     focusedTextColor = Color.Black,
-                    unfocusedTextColor = Color.Black
+                    unfocusedTextColor = Color.Black,
+                    cursorColor = GreenPrimary,
+                    focusedLabelColor = GreenPrimary
                 )
             )
             nameError?.let { Text(it, color = MaterialTheme.colorScheme.error, fontSize = 12.sp, modifier = Modifier.fillMaxWidth().padding(start = 8.dp)) }
@@ -95,10 +104,7 @@ fun RegisterScreen(
             // Email Field
             OutlinedTextField(
                 value = email,
-                onValueChange = {
-                    email = it
-                    if (emailError != null) emailError = null
-                },
+                onValueChange = { email = it; emailError = null },
                 label = { Text("Email") },
                 leadingIcon = { Icon(Icons.Default.Email, contentDescription = null, tint = GreenPrimary) },
                 modifier = Modifier.fillMaxWidth(),
@@ -108,10 +114,10 @@ fun RegisterScreen(
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = GreenPrimary,
                     unfocusedBorderColor = GreenSecondary,
-                    focusedLabelColor = GreenPrimary,
-                    cursorColor = GreenPrimary,
                     focusedTextColor = Color.Black,
-                    unfocusedTextColor = Color.Black
+                    unfocusedTextColor = Color.Black,
+                    cursorColor = GreenPrimary,
+                    focusedLabelColor = GreenPrimary
                 )
             )
             emailError?.let { Text(it, color = MaterialTheme.colorScheme.error, fontSize = 12.sp, modifier = Modifier.fillMaxWidth().padding(start = 8.dp)) }
@@ -121,10 +127,7 @@ fun RegisterScreen(
             // Password Field
             OutlinedTextField(
                 value = password,
-                onValueChange = {
-                    password = it
-                    if (passError != null) passError = null
-                },
+                onValueChange = { password = it; passError = null },
                 label = { Text("Password") },
                 leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null, tint = GreenPrimary) },
                 modifier = Modifier.fillMaxWidth(),
@@ -135,10 +138,10 @@ fun RegisterScreen(
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = GreenPrimary,
                     unfocusedBorderColor = GreenSecondary,
-                    focusedLabelColor = GreenPrimary,
-                    cursorColor = GreenPrimary,
                     focusedTextColor = Color.Black,
-                    unfocusedTextColor = Color.Black
+                    unfocusedTextColor = Color.Black,
+                    cursorColor = GreenPrimary,
+                    focusedLabelColor = GreenPrimary
                 )
             )
             passError?.let { Text(it, color = MaterialTheme.colorScheme.error, fontSize = 12.sp, modifier = Modifier.fillMaxWidth().padding(start = 8.dp)) }
@@ -148,36 +151,32 @@ fun RegisterScreen(
             // Register Button
             Button(
                 onClick = {
+                    focusManager.clearFocus()
                     if (validate()) {
                         authViewModel.register(name, email, password) { success ->
-                            if (success) navController.navigate("home") {
-                                popUpTo("register") { inclusive = true }
+                            if (success) {
+                                Toast.makeText(context, "Registration Successful! Please Login.", Toast.LENGTH_LONG).show()
+                                navController.navigate("login") {
+                                    popUpTo("register") { inclusive = true }
+                                }
+                            } else {
+                                Toast.makeText(context, "Registration Failed!", Toast.LENGTH_SHORT).show()
                             }
                         }
                     }
                 },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(55.dp),
+                modifier = Modifier.fillMaxWidth().height(55.dp),
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = GreenPrimary)
             ) {
-                Text("Register", fontSize = 18.sp, fontWeight = FontWeight.SemiBold, color = Color.White)
+                Text("Register", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color.White)
             }
 
             Spacer(Modifier.height(20.dp))
 
-            // Footer Link
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Text("Already have an account? ", color = TextSecondary)
-                TextButton(
-                    onClick = { navController.navigate("login") },
-                    contentPadding = PaddingValues(0.dp)
-                ) {
+                TextButton(onClick = { navController.navigate("login") }, contentPadding = PaddingValues(0.dp)) {
                     Text("Login", color = GreenPrimary, fontWeight = FontWeight.Bold)
                 }
             }

@@ -1,5 +1,8 @@
 package com.example.boipata.ui.auth
 
+import android.widget.Toast
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -11,6 +14,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -28,23 +33,41 @@ fun LoginScreen(
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-
     var emailError by remember { mutableStateOf<String?>(null) }
     var passError by remember { mutableStateOf<String?>(null) }
 
+    val context = LocalContext.current
+    val focusManager = LocalFocusManager.current
+    val interactionSource = remember { MutableInteractionSource() }
+
+    //Auto login check
+    LaunchedEffect(Unit) {
+        if (authViewModel.currentUser != null) {
+            navController.navigate("home") {
+                popUpTo("login") { inclusive = true }
+            }
+        }
+    }
+
     fun validate(): Boolean {
-        emailError = if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) "Enter a valid email address" else null
-        passError = if (password.length < 6) "Password must be at least 6 characters" else null
+        emailError = if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) "Enter a valid email" else null
+        passError = if (password.length < 6) "Password must be at least 6 digits" else null
         return emailError == null && passError == null
     }
 
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = BackgroundLight
-    ) {
+    Scaffold(
+        modifier = Modifier
+            .fillMaxSize()
+            .systemBarsPadding()
+            .clickable(interactionSource = interactionSource, indication = null) {
+                focusManager.clearFocus()
+            },
+        containerColor = BackgroundLight
+    ) { innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .padding(innerPadding)
                 .padding(horizontal = 30.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
@@ -55,10 +78,8 @@ fun LoginScreen(
                 color = GreenPrimary,
                 fontWeight = FontWeight.Bold
             )
-
             Text(
-                text = "Welcome back! Please enter your details.",
-                style = MaterialTheme.typography.bodyMedium,
+                text = "Welcome back!",
                 color = TextSecondary,
                 modifier = Modifier.padding(bottom = 32.dp)
             )
@@ -66,10 +87,7 @@ fun LoginScreen(
             // Email Field
             OutlinedTextField(
                 value = email,
-                onValueChange = {
-                    email = it
-                    if (emailError != null) emailError = null
-                },
+                onValueChange = { email = it; emailError = null },
                 label = { Text("Email") },
                 leadingIcon = { Icon(Icons.Default.Email, contentDescription = null, tint = GreenPrimary) },
                 modifier = Modifier.fillMaxWidth(),
@@ -79,10 +97,10 @@ fun LoginScreen(
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = GreenPrimary,
                     unfocusedBorderColor = GreenSecondary,
-                    focusedLabelColor = GreenPrimary,
+                    focusedTextColor = Color.Black,
+                    unfocusedTextColor = Color.Black,
                     cursorColor = GreenPrimary,
-                    focusedTextColor = Color.Black,   // ইউজার যখন টাইপ করবে তখন লেখা কালো হবে
-                    unfocusedTextColor = Color.Black  // টাইপ করার পর লেখা কালো থাকবে
+                    focusedLabelColor = GreenPrimary
                 )
             )
             emailError?.let { Text(it, color = MaterialTheme.colorScheme.error, fontSize = 12.sp, modifier = Modifier.fillMaxWidth().padding(start = 8.dp)) }
@@ -92,10 +110,7 @@ fun LoginScreen(
             // Password Field
             OutlinedTextField(
                 value = password,
-                onValueChange = {
-                    password = it
-                    if (passError != null) passError = null
-                },
+                onValueChange = { password = it; passError = null },
                 label = { Text("Password") },
                 leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null, tint = GreenPrimary) },
                 modifier = Modifier.fillMaxWidth(),
@@ -106,10 +121,10 @@ fun LoginScreen(
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = GreenPrimary,
                     unfocusedBorderColor = GreenSecondary,
-                    focusedLabelColor = GreenPrimary,
-                    cursorColor = GreenPrimary,
                     focusedTextColor = Color.Black,
-                    unfocusedTextColor = Color.Black
+                    unfocusedTextColor = Color.Black,
+                    cursorColor = GreenPrimary,
+                    focusedLabelColor = GreenPrimary
                 )
             )
             passError?.let { Text(it, color = MaterialTheme.colorScheme.error, fontSize = 12.sp, modifier = Modifier.fillMaxWidth().padding(start = 8.dp)) }
@@ -119,44 +134,35 @@ fun LoginScreen(
             // Login Button
             Button(
                 onClick = {
+                    focusManager.clearFocus()
                     if (validate()) {
                         authViewModel.login(email, password) { success ->
-                            if (success) navController.navigate("home") {
-                                popUpTo("login") { inclusive = true }
+                            if (success) {
+                                Toast.makeText(context, "Login Successful!", Toast.LENGTH_SHORT).show()
+                                navController.navigate("home") { popUpTo("login") { inclusive = true } }
+                            } else {
+                                Toast.makeText(context, "Login Failed! Please check info.", Toast.LENGTH_SHORT).show()
                             }
                         }
                     }
                 },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(55.dp),
+                modifier = Modifier.fillMaxWidth().height(55.dp),
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = GreenPrimary)
             ) {
-                Text("Login", fontSize = 18.sp, fontWeight = FontWeight.SemiBold, color = Color.White)
+                Text("Login", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color.White)
             }
 
             Spacer(Modifier.height(20.dp))
 
-            // Footer Links
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Text("Don't have an account? ", color = TextSecondary)
-                TextButton(
-                    onClick = { navController.navigate("register") },
-                    contentPadding = PaddingValues(0.dp)
-                ) {
+                TextButton(onClick = { navController.navigate("register") }, contentPadding = PaddingValues(0.dp)) {
                     Text("Create account", color = GreenPrimary, fontWeight = FontWeight.Bold)
                 }
             }
 
-            TextButton(
-                onClick = { navController.navigate("home") },
-                modifier = Modifier.padding(top = 8.dp)
-            ) {
+            TextButton(onClick = { navController.navigate("home") }) {
                 Text("Continue without account", color = TextSecondary)
             }
         }
