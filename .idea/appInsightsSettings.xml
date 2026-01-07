@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.example.boipata" />
+                  <option name="mobileSdkAppId" value="1:925869911562:android:5055f7e62b7630dabd39f3" />
+                  <option name="projectId" value="boipata-585b4" />
+                  <option name="projectNumber" value="925869911562" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
