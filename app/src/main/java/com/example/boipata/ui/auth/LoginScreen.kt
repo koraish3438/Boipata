@@ -4,8 +4,8 @@ import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
@@ -22,6 +22,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.boipata.navigation.Route
 import com.example.boipata.ui.theme.*
 import com.example.boipata.viewmodel.AuthViewModel
 
@@ -40,15 +41,6 @@ fun LoginScreen(
     val focusManager = LocalFocusManager.current
     val interactionSource = remember { MutableInteractionSource() }
 
-    //Auto login check
-    LaunchedEffect(Unit) {
-        if (authViewModel.currentUser != null) {
-            navController.navigate("home") {
-                popUpTo("login") { inclusive = true }
-            }
-        }
-    }
-
     fun validate(): Boolean {
         emailError = if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) "Enter a valid email" else null
         passError = if (password.length < 6) "Password must be at least 6 digits" else null
@@ -59,9 +51,7 @@ fun LoginScreen(
         modifier = Modifier
             .fillMaxSize()
             .systemBarsPadding()
-            .clickable(interactionSource = interactionSource, indication = null) {
-                focusManager.clearFocus()
-            },
+            .clickable(interactionSource = interactionSource, indication = null) { focusManager.clearFocus() },
         containerColor = BackgroundLight
     ) { innerPadding ->
         Column(
@@ -72,19 +62,10 @@ fun LoginScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text(
-                text = "Login",
-                style = MaterialTheme.typography.headlineLarge,
-                color = GreenPrimary,
-                fontWeight = FontWeight.Bold
-            )
-            Text(
-                text = "Welcome back!",
-                color = TextSecondary,
-                modifier = Modifier.padding(bottom = 32.dp)
-            )
+            Text("Login", style = MaterialTheme.typography.headlineLarge, color = GreenPrimary, fontWeight = FontWeight.Bold)
+            Text("Welcome back!", color = TextSecondary, modifier = Modifier.padding(bottom = 32.dp))
 
-            // Email Field
+            // Email
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it; emailError = null },
@@ -107,7 +88,7 @@ fun LoginScreen(
 
             Spacer(Modifier.height(16.dp))
 
-            // Password Field
+            // Password
             OutlinedTextField(
                 value = password,
                 onValueChange = { password = it; passError = null },
@@ -136,7 +117,7 @@ fun LoginScreen(
                 onClick = {
                     focusManager.clearFocus()
                     if (validate()) {
-                        authViewModel.login(email, password) { success ->
+                        authViewModel.login(email, password) { success: Boolean ->
                             if (success) {
                                 Toast.makeText(context, "Login Successful!", Toast.LENGTH_SHORT).show()
                                 navController.navigate("home") { popUpTo("login") { inclusive = true } }
@@ -162,7 +143,13 @@ fun LoginScreen(
                 }
             }
 
-            TextButton(onClick = { navController.navigate("home") }) {
+            TextButton(
+                onClick = {
+                    navController.navigate(Route.HOME) {
+                        popUpTo(Route.SPLASH) { inclusive = true }
+                    }
+                }
+            ) {
                 Text("Continue without account", color = TextSecondary)
             }
         }
