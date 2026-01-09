@@ -49,3 +49,21 @@ A modern eBook reader app built with **Kotlin + Jetpack Compose**, featuring cat
 - ✔ `BoipataApp.kt` updated to pass `AuthViewModel` to NavGraph  
 - ✔ Login & Register screens connected to `AuthViewModel` for authentication logic  
 - ✔ Navigation from login/register → home implemented after successful login
+
+
+## ✅ Day 5
+
+**Date:** 08-01-26  
+**Today Goal:** Authentication Flow Fix, Navigation & UI Polishing
+
+- ✔ Firebase Auth callback issues fixed (`onSuccess / onError` mismatch resolved)  
+- ✔ `AuthViewModel` login & register functions standardized  
+- ✔ Login screen validation improved (email & password error handling)  
+- ✔ Auto-login check added using `currentUser` state  
+- ✔ Logout functionality implemented from Home screen  
+- ✔ Navigation issues fixed (login ↔ home, continue without account flow)  
+- ✔ UI polished for Login & Home screens (spacing, buttons, colors)  
+- ✔ App flow verified: **Login → Home → Logout → Login**
+
+**Outcome:**  
+Authentication flow now stable, navigation works correctly, and user experience is smoother across screens.
