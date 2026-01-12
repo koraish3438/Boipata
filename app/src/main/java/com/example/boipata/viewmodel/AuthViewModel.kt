@@ -15,7 +15,7 @@ class AuthViewModel : ViewModel() {
     private val _currentUser = MutableStateFlow<FirebaseUser?>(auth.currentUser)
     val currentUser: StateFlow<FirebaseUser?> = _currentUser
 
-    // ---------------- LOGIN ----------------
+    //LOGIN
     fun login(
         email: String,
         password: String,
@@ -32,7 +32,7 @@ class AuthViewModel : ViewModel() {
             }
     }
 
-    // ---------------- REGISTER ----------------
+    //REGISTER
     fun register(
         name: String,
         email: String,
@@ -54,13 +54,13 @@ class AuthViewModel : ViewModel() {
             }
     }
 
-    // ---------------- LOGOUT ----------------
+    //LOGOUT
     fun logout() {
         auth.signOut()
         _currentUser.value = null
     }
 
-    // ---------------- CHECK LOGIN ----------------
+    //CHECK LOGIN
     fun isUserLoggedIn(): Boolean {
         return auth.currentUser != null
     }

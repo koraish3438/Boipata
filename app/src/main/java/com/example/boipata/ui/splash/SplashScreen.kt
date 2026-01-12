@@ -15,7 +15,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.boipata.R
-import com.example.boipata.ui.theme.BoipataTheme
 import com.example.boipata.ui.theme.GreenPrimary
 import com.example.boipata.ui.theme.GreenSecondary
 import com.example.boipata.viewmodel.AuthViewModel

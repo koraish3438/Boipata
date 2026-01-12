@@ -25,6 +25,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun BoipataApp() {
+    
     // NavController for navigation
     val navController = rememberNavController()
 

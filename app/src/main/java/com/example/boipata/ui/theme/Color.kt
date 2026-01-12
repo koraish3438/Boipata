@@ -3,16 +3,16 @@ package com.example.boipata.ui.theme
 import androidx.compose.ui.graphics.Color
 
 // Primary Colors
-val GreenPrimary = Color(0xFF1B5E20)        // Dark Green
-val GreenSecondary = Color(0xFF81C784)      // Light Green
+val GreenPrimary = Color(0xFF1B5E20)
+val GreenSecondary = Color(0xFF81C784)
 
 // Background & Surface
-val BackgroundLight = Color(0xFFF1F8E9)     // Soft off-white for reading
+val BackgroundLight = Color(0xFFF1F8E9)
 val SurfaceLight = Color(0xFFFFFFFF)
 
 // Text Colors
-val TextPrimary = Color(0xFF212121)         // Dark Gray
-val TextSecondary = Color(0xFF555555)       // Medium Gray
+val TextPrimary = Color(0xFF212121)
+val TextSecondary = Color(0xFF555555)
 
 // Accent (optional)
 val AccentYellow = Color(0xFFFFC107)
