@@ -79,7 +79,7 @@ fun RegisterScreen(
                 modifier = Modifier.padding(bottom = 32.dp)
             )
 
-            // Name Field
+            // Name Field section
             OutlinedTextField(
                 value = name,
                 onValueChange = { name = it; nameError = null },
@@ -101,7 +101,7 @@ fun RegisterScreen(
 
             Spacer(Modifier.height(16.dp))
 
-            // Email Field
+            // Email Field section
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it; emailError = null },
@@ -124,7 +124,7 @@ fun RegisterScreen(
 
             Spacer(Modifier.height(16.dp))
 
-            // Password Field
+            // Password Field section
             OutlinedTextField(
                 value = password,
                 onValueChange = { password = it; passError = null },
@@ -148,7 +148,7 @@ fun RegisterScreen(
 
             Spacer(Modifier.height(32.dp))
 
-            // Register Button
+            // Register Button section
             Button(
                 onClick = {
                     focusManager.clearFocus()

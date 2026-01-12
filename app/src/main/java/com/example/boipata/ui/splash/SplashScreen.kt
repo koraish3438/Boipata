@@ -41,7 +41,7 @@ fun SplashScreen(
         }
     }
 
-    // Green gradient background
+    // Green Gradient Background
     val greenGradient = Brush.verticalGradient(
         colors = listOf(GreenPrimary, GreenSecondary)
     )

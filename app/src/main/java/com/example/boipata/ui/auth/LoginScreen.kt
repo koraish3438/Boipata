@@ -65,7 +65,7 @@ fun LoginScreen(
             Text("Login", style = MaterialTheme.typography.headlineLarge, color = GreenPrimary, fontWeight = FontWeight.Bold)
             Text("Welcome back!", color = TextSecondary, modifier = Modifier.padding(bottom = 32.dp))
 
-            // Email
+            // Email section
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it; emailError = null },
@@ -88,7 +88,7 @@ fun LoginScreen(
 
             Spacer(Modifier.height(16.dp))
 
-            // Password
+            // Password section
             OutlinedTextField(
                 value = password,
                 onValueChange = { password = it; passError = null },
@@ -112,7 +112,7 @@ fun LoginScreen(
 
             Spacer(Modifier.height(24.dp))
 
-            // Login Button
+            // Login Button section
             Button(
                 onClick = {
                     focusManager.clearFocus()

@@ -16,9 +16,17 @@ fun BoipataNavGraph(
     authViewModel: AuthViewModel
 ) {
     NavHost(navController = navController, startDestination = Route.SPLASH) {
-        composable(Route.SPLASH) { SplashScreen(navController, authViewModel) }
-        composable(Route.LOGIN) { LoginScreen(navController, authViewModel) }
-        composable(Route.REGISTER) { RegisterScreen(navController, authViewModel) }
-        composable(Route.HOME) { HomeScreen(navController) }
+        composable(Route.SPLASH) { 
+            SplashScreen(navController, authViewModel) 
+        }
+        composable(Route.LOGIN) { 
+            LoginScreen(navController, authViewModel) 
+        }
+        composable(Route.REGISTER) { 
+            RegisterScreen(navController, authViewModel) 
+        }
+        composable(Route.HOME) { 
+            HomeScreen(navController) 
+        }
     }
 }

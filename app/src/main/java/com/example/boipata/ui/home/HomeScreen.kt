@@ -127,5 +127,9 @@ fun sampleBooks() = listOf(
     Book("1", "শীর্ষক ১", "লেখক ১", "https://picsum.photos/200/300"),
     Book("2", "শীর্ষক ২", "লেখক ২", "https://picsum.photos/201/300"),
     Book("3", "শীর্ষক ৩", "লেখক ৩", "https://picsum.photos/202/300"),
-    Book("4", "শীর্ষক ৪", "লেখক ৪", "https://picsum.photos/203/300")
+    Book("4", "শীর্ষক ৪", "লেখক ৪", "https://picsum.photos/203/300"),
+    Book("5", "শীর্ষক ১", "লেখক ১", "https://picsum.photos/200/300"),
+    Book("6", "শীর্ষক ২", "লেখক ২", "https://picsum.photos/201/300"),
+    Book("7", "শীর্ষক ৩", "লেখক ৩", "https://picsum.photos/202/300"),
+    Book("8", "শীর্ষক ৪", "লেখক ৪", "https://picsum.photos/203/300")
 )
