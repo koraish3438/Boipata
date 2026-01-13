@@ -44,7 +44,8 @@ fun SplashScreen(
     val greenGradient = Brush.verticalGradient(
         colors = listOf(GreenPrimary, GreenSecondary)
     )
-
+    
+	// Logo + Tagline
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -55,6 +56,8 @@ fun SplashScreen(
             modifier = Modifier.offset(y = (-60).dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+
+            // Logo
             Image(
                 painter = painterResource(id = R.drawable.boipata_logo_),
                 contentDescription = "Logo",
@@ -62,7 +65,8 @@ fun SplashScreen(
             )
 
             Spacer(modifier = Modifier.height(20.dp))
-
+            
+			// Tagline
             Text(
                 text = "বই পড়ুন, বই শুনুন – বইপাতায়",
                 fontSize = 18.sp,
