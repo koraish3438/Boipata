@@ -97,6 +97,7 @@ fun RegisterScreen(
                     focusedLabelColor = GreenPrimary
                 )
             )
+
             nameError?.let { Text(it, color = MaterialTheme.colorScheme.error, fontSize = 12.sp, modifier = Modifier.fillMaxWidth().padding(start = 8.dp)) }
 
             Spacer(Modifier.height(16.dp))
@@ -120,6 +121,7 @@ fun RegisterScreen(
                     focusedLabelColor = GreenPrimary
                 )
             )
+
             emailError?.let { Text(it, color = MaterialTheme.colorScheme.error, fontSize = 12.sp, modifier = Modifier.fillMaxWidth().padding(start = 8.dp)) }
 
             Spacer(Modifier.height(16.dp))
@@ -144,6 +146,7 @@ fun RegisterScreen(
                     focusedLabelColor = GreenPrimary
                 )
             )
+            
             passError?.let { Text(it, color = MaterialTheme.colorScheme.error, fontSize = 12.sp, modifier = Modifier.fillMaxWidth().padding(start = 8.dp)) }
 
             Spacer(Modifier.height(32.dp))
